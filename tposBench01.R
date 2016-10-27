@@ -13,7 +13,7 @@
 
 # --- Outline -----------------------------------------------------------------
 # 1. Declarations
-# 2. Import PMF Data, scrub
+# 2. Import PMF R.Data (see pmfTabScrubber.r)
 # 3. Import EBS Data, scrub
 # 4. Join Data Sets
 # 5. Apply Key File
