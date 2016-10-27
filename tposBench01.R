@@ -1,4 +1,4 @@
-#==============================================================================
+# === BOILERPLATE =============================================================
 #
 #  Two Point Oh System Data Benchmarking R Script
 #  Matthew Chenoweth
@@ -9,10 +9,21 @@
 #  Incidentally, Utilize Git to track this project locally, and (hopefully) use
 # Github to publish code. We'll see. The URL _should_ be as follows:
 # https://github.com/mattcheno/TPOSbenchmarking.git
-#
-#------------------------------------------------------------------------------
 
 
+# --- Outline -----------------------------------------------------------------
+# 1. Declarations
+# 2. Import PMF Data, scrub
+# 3. Import EBS Data, scrub
+# 4. Join Data Sets
+# 5. Apply Key File
+# 6. Save Data Set
 
-#==============================================================================
-#==============================================================================
+# --- Declarations ------------------------------------------------------------
+
+working_dir <- getwd()     # Working Directory
+data_dir <- paste(working_dir, "data", sep = "/") # Directory for input data
+##CURSOR
+
+# === FOOTNOTES ===============================================================
+# === END OF CODE =============================================================
