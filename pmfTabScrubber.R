@@ -6,8 +6,8 @@
 #
 #  TPOS benchmarking depends on data from PMF, which will eventually be static.
 # Eventually the entirety of PMF data will be scrubbed and stored (at least) in
-# an R data file. This script is for the mean-time, in which data from PMF will
-# need to be scrubbed
+# an R data file. This script is for the mean-time.
+#  Converts Tab delineated PMF Data into R data file.
 
 
 # --- Outline -----------------------------------------------------------------
@@ -19,6 +19,7 @@
 working_dir <- getwd()     # Working Directory
 data_dir <- paste(working_dir, "data", sep = "/") # Directory for input data
 pmf_data_file <- paste(data_dir,"pmfTabData.txt", sep = "/") # PMF Data File
+out_file <- paste(data_dir,"pmfData.rds", sep = "/") # output R Data File
   # Column Labels in case Header = False
 pmf_Col_Names <- c(
   "ClientName",
@@ -70,9 +71,20 @@ pmf_data01 <- read.delim(     # See Note 001
   #col.names = pmf_Col_Names,     # Column Names if header = TRUE
   colClasses = pmf_Col_Class     # column class overrides
 )
+print("PMF Tab Data Imported")
 
+# --- Scrub Imported Data -----------------------------------------------------
+require(dplyr)
+require(lubridate)     # REQUIRED for date arithmatic
 
-##CURSOR
+pmf_data02 <- pmf_data01 %>%
+  mutate(
+    YearAgeAtService = year(pmf_data01$ServiceDate) - pmf_data01$Year
+    # TO DO: convert hour meter to numeric with "Null"/"NULL" as NAs
+  )
+
+# --- Save as R Data File -----------------------------------------------------
+saveRDS(pmf_data02, file = out_file)
 
 # === FOOTNOTES ===============================================================
 #     Note 001

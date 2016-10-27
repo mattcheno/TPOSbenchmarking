@@ -14,7 +14,7 @@
 # --- Outline -----------------------------------------------------------------
 # 1. Declarations
 # 2. Import PMF R.Data (see pmfTabScrubber.r)
-# 3. Import EBS Data, scrub
+# 3. Import EBS Data, scrub (remember lubridate for date arithmatic)
 # 4. Join Data Sets
 # 5. Apply Key File
 # 6. Save Data Set
