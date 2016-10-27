@@ -21,6 +21,7 @@ data_dir <- paste(working_dir, "data", sep = "/") # Directory for input data
 pmf_data_file <- paste(data_dir,"pmfTabData.txt", sep = "/") # PMF Data File
   # Column Labels in case Header = False
 pmf_Col_Names <- c(
+  "ClientName",
   "UnitID",
   "UnitType",
   "Make",
@@ -41,7 +42,8 @@ pmf_Col_Names <- c(
 )
   # Column Class Overrides for PMF Data
 pmf_Col_Class <- c(
-  "factor",     #UnitID
+  NA,     #ClientName
+  NA,     #UnitID
   NA,     #UnitType
   NA,     #Make
   NA,     #ModelCode
@@ -63,11 +65,10 @@ pmf_Col_Class <- c(
 # --- Import Data -------------------------------------------------------------
 pmf_data01 <- read.delim(     # See Note 001
   file = pmf_data_file,
-  header = FALSE,     # first row is NOT header names
+  header = TRUE,     # first row IS header names
   sep = "\t",     # tab-delineated
-  col.names = pmf_Col_Names,     # Column Names since header = False
-  colClasses = pmf_Col_Class,     # column class overrides
-  fileEncoding = "UTF-8-BOM"     # See Note 002
+  #col.names = pmf_Col_Names,     # Column Names if header = TRUE
+  colClasses = pmf_Col_Class     # column class overrides
 )
 
 
@@ -80,8 +81,11 @@ pmf_data01 <- read.delim(     # See Note 001
 # solution
 # Reference - http://stackoverflow.com/q/26086389
 #     Note 002
-# Using the UTF-8-BOM file encoding gets rid of a funky "ï»¿" I was getting 
-# prepended to the first observation. 
+# This is now old news, but I'll keep the note in. Older versions of the data
+# set had a funky "ï»¿" prepended to the first observation. I used the line
+# [fileEncoding = "UTF-8-BOM"] to fix that, but then when I got the new data 
+# with client names the issue fixed itself. Perhaps the new data having column
+# headers was the trick?
 # Reference - http://stackoverflow.com/q/24568056
 # 
 # === END OF CODE =============================================================
