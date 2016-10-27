@@ -10,10 +10,6 @@
 #  Converts Tab delineated PMF Data into R data file.
 
 
-# --- Outline -----------------------------------------------------------------
-# 1. Declarations
-# 2. Import PMF Tab data into data frame
-
 # --- Declarations ------------------------------------------------------------
 
 working_dir <- getwd()     # Working Directory
@@ -63,6 +59,12 @@ pmf_Col_Class <- c(
   "character"     #MeterValue
 )
 
+
+# --- if_Null Function --------------------------------------------------------
+if_Null <- function(x) {
+  ifelse(tolower(x) == "null", NA, as.numeric(x))
+}
+
 # --- Import Data -------------------------------------------------------------
 pmf_data01 <- read.delim(     # See Note 001
   file = pmf_data_file,
@@ -79,12 +81,14 @@ require(lubridate)     # REQUIRED for date arithmatic
 
 pmf_data02 <- pmf_data01 %>%
   mutate(
+    HourMeter = if_Null(t.MeterValue),
     YearAgeAtService = year(pmf_data01$ServiceDate) - pmf_data01$Year
-    # TO DO: convert hour meter to numeric with "Null"/"NULL" as NAs
-  )
+  ) %>%
+  select(-t.MeterValue)
 
 # --- Save as R Data File -----------------------------------------------------
 saveRDS(pmf_data02, file = out_file)
+rm(list = ls())
 
 # === FOOTNOTES ===============================================================
 #     Note 001
