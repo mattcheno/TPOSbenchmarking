@@ -21,6 +21,7 @@
 
 # --- Declarations ------------------------------------------------------------
 
+start_time <- Sys.time()
 working_dir <- getwd()     # Working Directory
 data_dir <- paste(working_dir, "data", sep = "/") # Directory for input data
 pmf_r_file <- paste(data_dir,"pmfData.rds", sep = "/") # R data file for PMF
@@ -66,20 +67,23 @@ ebs_col_class <- c(
   NA     #Subclass
 )
      # List of strings to convert to NAs
-ebs_NAs <- c("", " ", "NA", "UNK")
+ebs_NAs <- c("", "NA", "UNK")
 
 # --- Import Data -------------------------------------------------------------
 # Temporarily Commented out-> pmf_data01 <- readRDS(file = pmf_r_file)
 
-ebs_data01 <- read.csv(
+ebs_data01 <- read.delim(
   file = ebs_csv,
   header = TRUE,
+  sep = ",", quote = "\"", dec = ".",
   #col.names = pmf_Col_Names,     # Column Names if header = TRUE
   colClasses = ebs_col_class,
   na.strings = ebs_NAs
 )
 
 ##CURSOR
+finish_time <- Sys.time()
+print(finish_time - start_time)
 
 # === FOOTNOTES ===============================================================
 # === END OF CODE =============================================================
