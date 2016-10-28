@@ -23,6 +23,62 @@
 
 working_dir <- getwd()     # Working Directory
 data_dir <- paste(working_dir, "data", sep = "/") # Directory for input data
+pmf_r_file <- paste(data_dir,"pmfData.rds", sep = "/") # R data file for PMF
+ebs_csv <- paste(data_dir,"ebsCSVData.csv", sep = "/") # EBS Output file
+     # Column Labels in case Header = False
+ebs_col_names <- c(
+  "Branch", 
+  "WorkOrder", 
+  "Segment", 
+  "OrderType", 
+  "Mfg", 
+  "Model", 
+  "SerialNumber", 
+  "WieseID", 
+  "Meter", 
+  "Labor", 
+  "Parts", 
+  "Misc", 
+  "Total", 
+  "OrderDate", 
+  "EquipYear", 
+  "Class", 
+  "Subclass"
+)
+     # Column Class Overrides
+ebs_col_class <- c(
+  NA,     #Branch 
+  NA,     #WorkOrder 
+  NA,     #Segment
+  NA,     #OrderType
+  NA,     #Mfg
+  NA,     #Model
+  NA,     #SerialNumber
+  NA,     #WieseID
+  NA,     #Meter
+  NA,     #Labor
+  NA,     #Parts
+  NA,     #Misc
+  NA,     #Total
+  "character",     #OrderDate
+  NA,     #EquipYear
+  NA,     #Class
+  NA     #Subclass
+)
+     # List of strings to convert to NAs
+ebs_NAs <- c("", " ", "NA", "UNK")
+
+# --- Import Data -------------------------------------------------------------
+# Temporarily Commented out-> pmf_data01 <- readRDS(file = pmf_r_file)
+
+ebs_data01 <- read.csv(
+  file = ebs_csv,
+  header = TRUE,
+  #col.names = pmf_Col_Names,     # Column Names if header = TRUE
+  colClasses = ebs_col_class,
+  na.strings = ebs_NAs
+)
+
 ##CURSOR
 
 # === FOOTNOTES ===============================================================
